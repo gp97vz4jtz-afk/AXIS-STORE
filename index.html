@@ -3,115 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OZONE STORE | متجر أوزون</title>
+    <title>AXIS | مِحور الفخامة والسيادة</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #f9fafb; }
-        .cart-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: #fff; scroll-behavior: smooth; }
+        .gold-text { background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-axis { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #1a1a1a; position: relative; overflow: hidden; background: #0a0a0a; }
+        .card-axis:hover { transform: translateY(-15px); border-color: #B38728; box-shadow: 0 25px 50px -12px rgba(179, 135, 40, 0.3); }
+        .btn-luxury { background: linear-gradient(45deg, #B38728, #BF953F); color: black; font-weight: bold; transition: 0.3s; }
+        .btn-luxury:hover { opacity: 0.9; transform: scale(1.05); }
+        .payment-badge { border: 1px border-yellow-900/50; background: rgba(184, 134, 11, 0.1); }
     </style>
 </head>
-<body class="pb-24">
+<body>
 
-    <header class="bg-white p-4 shadow-sm sticky top-0 z-50 flex justify-between items-center">
-        <h1 class="text-2xl font-black text-black">OZONE</h1>
-        <button onclick="toggleCart()" class="relative p-2 bg-gray-100 rounded-full">
-            🛒 <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-        </button>
+    <header class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg border-b border-white/5 p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-5xl font-black tracking-tighter gold-text">AXIS</h1>
+            <div class="hidden md:flex gap-10 text-xs tracking-[0.3em] uppercase items-center">
+                <a href="#store" class="hover:text-yellow-500 transition">الأقسام</a>
+                <a href="#payment" class="hover:text-yellow-500 transition">بيانات الدفع</a>
+                <a href="#contact" class="hover:text-yellow-500 transition">التواصل</a>
+            </div>
+            <div class="text-xl cursor-pointer relative" onclick="showCart()">
+                🛒 <span id="cart-count" class="absolute -top-2 -left-2 text-[10px] bg-yellow-600 px-2 py-0.5 rounded-full">0</span>
+            </div>
+        </div>
     </header>
 
-    <div id="product-list" class="p-4 grid grid-cols-2 gap-4">
+    <section class="h-[70vh] flex flex-col items-center justify-center text-center px-4">
+        <h3 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">AXIS: مِحور السيادة</h3>
+        <p class="text-gray-400 max-w-xl text-lg leading-relaxed">أزياء رجالية ونسائية، أحذية، حقائب، وتجميل.. تجتمع هنا لترسم مدار أناقتك الخاص.</p>
+        <div class="flex gap-4 mt-10">
+            <a href="#store" class="px-10 py-4 btn-luxury rounded-sm uppercase tracking-widest text-sm">تسوق الآن</a>
         </div>
+    </section>
 
-    <div id="cart-modal" class="cart-modal">
-        <div class="bg-white w-full max-w-md mx-auto mt-20 rounded-t-3xl p-6 h-full overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold">حقيبة التسوق</h2>
-                <button onclick="toggleCart()" class="text-2xl">✕</button>
-            </div>
-            <div id="cart-items" class="space-y-4">
+    <section id="store" class="container mx-auto px-6 py-20">
+        <h4 class="text-3xl font-bold mb-16 gold-text">تصفح المجموعات المختارة</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <script>
+                const products = [
+                    { name: "تشكيلة الأزياء الرجالية", icon: "👔", price: "حسب القطعة" },
+                    { name: "تشكيلة الأزياء النسائية", icon: "👗", price: "حسب القطعة" },
+                    { name: "الأحذية الراقية", icon: "👞", price: "حسب القطعة" },
+                    { name: "الحقائب الفاخرة", icon: "👜", price: "حسب القطعة" },
+                    { name: "مستحضرات التجميل", icon: "💄", price: "حسب القطعة" },
+                    { name: "منتجات العناية بالبشرة", icon: "✨", price: "حسب القطعة" }
+                ];
+                document.write(products.map(p => `
+                    <div class="card-axis p-8 rounded-xl text-center">
+                        <div class="text-6xl mb-6">${p.icon}</div>
+                        <h5 class="text-xl font-bold mb-4">${p.name}</h5>
+                        <p class="text-zinc-500 mb-6 text-sm">${p.price}</p>
+                        <button onclick="addToCart('${p.name}')" class="btn-luxury w-full py-3 rounded-md">إضافة للطلب</button>
+                    </div>
+                `).join(''));
+            </script>
+        </div>
+    </section>
+
+    <section id="payment" class="bg-zinc-950 py-20 border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <h4 class="text-2xl font-bold mb-12 text-center gold-text text-yellow-500">حسابات الدفع المعتمدة (بنك كريمي)</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
+                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب ريال يمني</p>
+                    <p class="text-xl font-bold tracking-widest text-white">3156241937</p>
                 </div>
-            <div class="border-t mt-6 pt-4">
-                <div class="flex justify-between font-bold text-lg">
-                    <span>الإجمالي:</span>
-                    <span id="cart-total">0</span><span> ريال</span>
+                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
+                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب دولار أمريكي</p>
+                    <p class="text-xl font-bold tracking-widest text-white">3113900805</p>
                 </div>
-                <div class="mt-4 space-y-2">
-                    <p class="text-xs text-gray-500">طرق الدفع المتاحة: الكريمي، النجم، جيب</p>
-                    <button onclick="checkout()" class="w-full bg-black text-white py-4 rounded-2xl font-bold">تأكيد الطلب والدفع 💳</button>
+                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
+                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب ريال سعودي</p>
+                    <p class="text-xl font-bold tracking-widest text-white">3178475427</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer id="contact" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="gold-text text-5xl font-black mb-12">AXIS</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-10 mb-12 border-b border-white/5 pb-12">
+                <div>
+                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">الرقم الأساسي</p>
+                    <a href="tel:+967772675315" class="text-xl font-bold hover:text-yellow-500 transition">+967772675315</a>
+                </div>
+                <div>
+                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">خدمة المبيعات</p>
+                    <a href="tel:+967778065086" class="text-xl font-bold hover:text-yellow-500 transition">+967778065086</a>
+                </div>
+                <div>
+                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">البريد الإلكتروني</p>
+                    <p class="text-xl">s05594637@Gmail.com</p>
+                </div>
+            </div>
+            <p class="text-zinc-600 text-sm italic">Instagram: 3._s__9</p>
+            <p class="mt-10 text-[10px] text-zinc-800 tracking-[0.5em] uppercase">Created for the Elite. AXIS 2026.</p>
+        </div>
+    </footer>
 
     <script>
-        // --- لوحة التحكم (أضف منتجاتك هنا بسهولة) ---
-        const products = [
-            { id: 1, name: "حذاء رياضي Nike", price: 15000, img: "https://via.placeholder.com/150", cat: "shoes" },
-            { id: 2, name: "ساعة ذكية Ultra", price: 12000, img: "https://via.placeholder.com/150", cat: "tech" },
-            { id: 3, name: "حقيبة يد نسائية", price: 9500, img: "https://via.placeholder.com/150", cat: "bags" }
-        ];
-
         let cart = [];
-
-        // عرض المنتجات
-        function displayProducts() {
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => `
-                <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-                    <img src="${p.img}" class="w-full h-32 object-contain rounded-xl mb-2">
-                    <h3 class="text-xs font-bold">${p.name}</h3>
-                    <p class="text-yellow-600 font-black text-sm mt-1">${p.price.toLocaleString()} ر.ي</p>
-                    <button onclick="addToCart(${p.id})" class="w-full mt-2 bg-gray-900 text-white py-2 rounded-lg text-[10px]">إضافة للسلة</button>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            updateCart();
-        }
-
-        function updateCart() {
+        function addToCart(item) {
+            cart.push(item);
             document.getElementById('cart-count').innerText = cart.length;
-            const cartList = document.getElementById('cart-items');
-            const totalDisplay = document.getElementById('cart-total');
-            
-            let total = 0;
-            cartList.innerHTML = cart.map((item, index) => {
-                total += item.price;
-                return `
-                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
-                        <div class="text-xs font-bold">${item.name}</div>
-                        <div class="text-xs">${item.price.toLocaleString()} ر.ي</div>
-                        <button onclick="removeFromCart(${index})" class="text-red-500 text-xs">حذف</button>
-                    </div>
-                `;
-            }).join('');
-            totalDisplay.innerText = total.toLocaleString();
+            alert("أُضيفت " + item + " إلى سلة AXIS بنجاح.");
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
+        function showCart() {
+            if (cart.length === 0) return alert("سلة AXIS فارغة.");
+            let confirmPay = confirm("سلتك تحتوي على: " + cart.join(', ') + "\n\nهل تود تأكيد الطلب والدفع عبر حسابات كريمي الموضحة؟");
+            if (confirmPay) {
+                let msg = "مرحباً AXIS، أود طلب هذه المنتجات: " + cart.join(' - ');
+                window.open("https://wa.me/967772675315?text=" + encodeURIComponent(msg));
+            }
         }
-
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function checkout() {
-            if(cart.length === 0) return alert("السلة فارغة!");
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const itemsList = cart.map(i => i.name).join(' + ');
-            
-            const message = `طلب جديد من OZONE STORE 🔥%0A%0A📦 المنتجات: ${itemsList}%0A💰 الإجمالي: ${total.toLocaleString()} ريال%0A%0Aيرجى تزويدي ببيانات التحويل (كريمي/نجم) لإتمام الدفع.`;
-            window.open(`https://wa.me/967772675315?text=${message}`, '_blank');
-        }
-
-        displayProducts();
     </script>
 </body>
 </html>
