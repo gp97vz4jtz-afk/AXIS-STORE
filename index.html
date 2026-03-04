@@ -3,124 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXIS | مِحور الفخامة والسيادة</title>
+    <title>AXIS | مِحور الفخامة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
-        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: #fff; scroll-behavior: smooth; }
-        .gold-text { background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-axis { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #1a1a1a; position: relative; overflow: hidden; background: #0a0a0a; }
-        .card-axis:hover { transform: translateY(-15px); border-color: #B38728; box-shadow: 0 25px 50px -12px rgba(179, 135, 40, 0.3); }
-        .btn-luxury { background: linear-gradient(45deg, #B38728, #BF953F); color: black; font-weight: bold; transition: 0.3s; }
-        .btn-luxury:hover { opacity: 0.9; transform: scale(1.05); }
-        .payment-badge { border: 1px border-yellow-900/50; background: rgba(184, 134, 11, 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: #fff; }
+        .gold-text { background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-axis { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.4s; }
+        .card-axis:hover { border-color: #B38728; transform: translateY(-10px); }
     </style>
 </head>
 <body>
-
-    <header class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg border-b border-white/5 p-6">
+    <header class="p-6 border-b border-white/5 bg-black/90 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-5xl font-black tracking-tighter gold-text">AXIS</h1>
-            <div class="hidden md:flex gap-10 text-xs tracking-[0.3em] uppercase items-center">
-                <a href="#store" class="hover:text-yellow-500 transition">الأقسام</a>
-                <a href="#payment" class="hover:text-yellow-500 transition">بيانات الدفع</a>
-                <a href="#contact" class="hover:text-yellow-500 transition">التواصل</a>
-            </div>
-            <div class="text-xl cursor-pointer relative" onclick="showCart()">
-                🛒 <span id="cart-count" class="absolute -top-2 -left-2 text-[10px] bg-yellow-600 px-2 py-0.5 rounded-full">0</span>
+            <h1 class="text-4xl font-black gold-text">AXIS</h1>
+            <div class="text-sm space-x-reverse space-x-6">
+                <a href="#store" class="hover:text-yellow-500">المتجر</a>
+                <a href="#payment" class="hover:text-yellow-500">الدفع</a>
             </div>
         </div>
     </header>
 
-    <section class="h-[70vh] flex flex-col items-center justify-center text-center px-4">
-        <h3 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">AXIS: مِحور السيادة</h3>
-        <p class="text-gray-400 max-w-xl text-lg leading-relaxed">أزياء رجالية ونسائية، أحذية، حقائب، وتجميل.. تجتمع هنا لترسم مدار أناقتك الخاص.</p>
-        <div class="flex gap-4 mt-10">
-            <a href="#store" class="px-10 py-4 btn-luxury rounded-sm uppercase tracking-widest text-sm">تسوق الآن</a>
+    <section class="py-20 text-center">
+        <h2 class="text-6xl font-bold mb-4">AXIS</h2>
+        <p class="text-gray-400">مِحور السيادة في عالم الموضة والجمال</p>
+    </section>
+
+    <section id="store" class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 py-10">
+        <div class="card-axis p-8 rounded-xl text-center">
+            <div class="text-5xl mb-4">👔</div>
+            <h3 class="text-xl font-bold mb-4">الأزياء الرجالية والنسائية</h3>
+            <button onclick="order('الأزياء')" class="bg-yellow-600 text-black px-6 py-2 rounded-full font-bold">تسوق الآن</button>
+        </div>
+        <div class="card-axis p-8 rounded-xl text-center">
+            <div class="text-5xl mb-4">👠</div>
+            <h3 class="text-xl font-bold mb-4">الأحذية والحقائب</h3>
+            <button onclick="order('الأحذية والحقائب')" class="bg-yellow-600 text-black px-6 py-2 rounded-full font-bold">تسوق الآن</button>
+        </div>
+        <div class="card-axis p-8 rounded-xl text-center">
+            <div class="text-5xl mb-4">✨</div>
+            <h3 class="text-xl font-bold mb-4">التجميل والعناية</h3>
+            <button onclick="order('التجميل والعناية')" class="bg-yellow-600 text-black px-6 py-2 rounded-full font-bold">تسوق الآن</button>
         </div>
     </section>
 
-    <section id="store" class="container mx-auto px-6 py-20">
-        <h4 class="text-3xl font-bold mb-16 gold-text">تصفح المجموعات المختارة</h4>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <script>
-                const products = [
-                    { name: "تشكيلة الأزياء الرجالية", icon: "👔", price: "حسب القطعة" },
-                    { name: "تشكيلة الأزياء النسائية", icon: "👗", price: "حسب القطعة" },
-                    { name: "الأحذية الراقية", icon: "👞", price: "حسب القطعة" },
-                    { name: "الحقائب الفاخرة", icon: "👜", price: "حسب القطعة" },
-                    { name: "مستحضرات التجميل", icon: "💄", price: "حسب القطعة" },
-                    { name: "منتجات العناية بالبشرة", icon: "✨", price: "حسب القطعة" }
-                ];
-                document.write(products.map(p => `
-                    <div class="card-axis p-8 rounded-xl text-center">
-                        <div class="text-6xl mb-6">${p.icon}</div>
-                        <h5 class="text-xl font-bold mb-4">${p.name}</h5>
-                        <p class="text-zinc-500 mb-6 text-sm">${p.price}</p>
-                        <button onclick="addToCart('${p.name}')" class="btn-luxury w-full py-3 rounded-md">إضافة للطلب</button>
-                    </div>
-                `).join(''));
-            </script>
-        </div>
-    </section>
-
-    <section id="payment" class="bg-zinc-950 py-20 border-y border-white/5">
-        <div class="container mx-auto px-6">
-            <h4 class="text-2xl font-bold mb-12 text-center gold-text text-yellow-500">حسابات الدفع المعتمدة (بنك كريمي)</h4>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
-                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب ريال يمني</p>
-                    <p class="text-xl font-bold tracking-widest text-white">3156241937</p>
-                </div>
-                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
-                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب دولار أمريكي</p>
-                    <p class="text-xl font-bold tracking-widest text-white">3113900805</p>
-                </div>
-                <div class="payment-badge p-6 rounded-lg text-center border border-yellow-900/30">
-                    <p class="text-xs text-gray-500 mb-2 uppercase">حساب ريال سعودي</p>
-                    <p class="text-xl font-bold tracking-widest text-white">3178475427</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="py-20">
+    <section id="payment" class="bg-zinc-950 py-16 mt-10">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="gold-text text-5xl font-black mb-12">AXIS</h2>
-            <div class="flex flex-col md:flex-row justify-center gap-10 mb-12 border-b border-white/5 pb-12">
-                <div>
-                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">الرقم الأساسي</p>
-                    <a href="tel:+967772675315" class="text-xl font-bold hover:text-yellow-500 transition">+967772675315</a>
-                </div>
-                <div>
-                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">خدمة المبيعات</p>
-                    <a href="tel:+967778065086" class="text-xl font-bold hover:text-yellow-500 transition">+967778065086</a>
-                </div>
-                <div>
-                    <p class="text-zinc-600 uppercase text-[10px] tracking-[0.3em] mb-3">البريد الإلكتروني</p>
-                    <p class="text-xl">s05594637@Gmail.com</p>
-                </div>
+            <h3 class="gold-text text-2xl font-bold mb-8">حسابات كريمي المعتمدة</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="p-4 border border-yellow-900/30 rounded">يمني: 3156241937</div>
+                <div class="p-4 border border-yellow-900/30 rounded">دولار: 3113900805</div>
+                <div class="p-4 border border-yellow-900/30 rounded">سعودي: 3178475427</div>
             </div>
-            <p class="text-zinc-600 text-sm italic">Instagram: 3._s__9</p>
-            <p class="mt-10 text-[10px] text-zinc-800 tracking-[0.5em] uppercase">Created for the Elite. AXIS 2026.</p>
         </div>
+    </section>
+
+    <footer class="p-10 text-center border-t border-white/5">
+        <p class="text-yellow-500 font-bold mb-2">للتواصل المباشر:</p>
+        <p dir="ltr">+967 772 675 315</p>
+        <p dir="ltr">+967 778 065 086</p>
+        <p class="mt-4 text-gray-600 text-xs">Instagram: 3._s__9</p>
     </footer>
 
     <script>
-        let cart = [];
-        function addToCart(item) {
-            cart.push(item);
-            document.getElementById('cart-count').innerText = cart.length;
-            alert("أُضيفت " + item + " إلى سلة AXIS بنجاح.");
-        }
-
-        function showCart() {
-            if (cart.length === 0) return alert("سلة AXIS فارغة.");
-            let confirmPay = confirm("سلتك تحتوي على: " + cart.join(', ') + "\n\nهل تود تأكيد الطلب والدفع عبر حسابات كريمي الموضحة؟");
-            if (confirmPay) {
-                let msg = "مرحباً AXIS، أود طلب هذه المنتجات: " + cart.join(' - ');
-                window.open("https://wa.me/967772675315?text=" + encodeURIComponent(msg));
-            }
+        function order(cat) {
+            const msg = "مرحباً AXIS، أود الاستفسار عن قسم " + cat;
+            window.open("https://wa.me/967772675315?text=" + encodeURIComponent(msg));
         }
     </script>
 </body>
